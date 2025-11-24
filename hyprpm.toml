@@ -40,7 +40,7 @@ commit_pins = [
 ]
 
 [Hypr-DarkWindow]
-description = "Apply custom shaders to any Window!"
+description = "Chromakey-blur support"
 authors = ["micha4w"]
 output = "out/hypr-darkwindow.so"
 build = [
