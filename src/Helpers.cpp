@@ -188,6 +188,7 @@ void ShaderHolder::ApplyArgs(const Uniforms& args) noexcept
 }
 
 
+
 ShaderHolder::ShaderHolder(const std::string& source)
 {
     g_pHyprRenderer->makeEGLCurrent();
@@ -202,7 +203,8 @@ ShaderHolder::ShaderHolder(const std::string& source)
     const auto TEXFRAGSRCCM           = editShader(processShader("CM.frag", includes), source);
     const auto TEXFRAGSRCRGBA         = editShader(processShader("rgba.frag", includes), source);
     const auto TEXFRAGSRCRGBX         = editShader(processShader("rgbx.frag", includes), source);
-    const auto TEXFRAGSRCEXT          = editShader(processShader("ext.frag", includes), source);
+    
+    const auto TEXFRAGSRCEXT          = editShader(processShader("ext.frag", includes), "#define tex texture0\n" + source);
 
     CM.program = createProgram(TEXVERTSRC, TEXFRAGSRCCM, true, true);
     if (CM.program) {
@@ -277,6 +279,7 @@ ShaderHolder::ShaderHolder(const std::string& source)
     EXT.uniformLocations[SHADER_TINT]                = glGetUniformLocation(EXT.program, "tint");
     EXT.createVao();
 }
+
 
 ShaderHolder::~ShaderHolder()
 {
